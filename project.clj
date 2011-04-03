@@ -36,7 +36,5 @@
   ;:repositories {"maven-gae-plugin" "http://maven-gae-plugin.googlecode.com/svn/repository"}
   :aot [cljgae.core]
   ;:aot [cljgae.servlet]
-  ;:aot [cljgae.app_servlet]				
-  ;:aot [myapp3.core]
-  ;:aot [myapp2.app_servlet]
+  ;:aot [cljgae.app_servlet]
 )
