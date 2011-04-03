@@ -2,7 +2,7 @@
     (:use
 	  [clojure.contrib.datalog.database :only (make-database add-tuples remove-tuple add-tuple select)]))
 
-;
+; (map vector (range) [{:a 1} {:b 2} {:c 3}])
 (def db-schema
     (make-database
       (relation :forms [:id :title :order :method :target :success :fail :cancel :email])
