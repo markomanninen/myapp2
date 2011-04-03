@@ -1,0 +1,46 @@
+(ns cljgae.databaset
+    (:use
+	  [clojure.contrib.datalog.database :only (make-database add-tuples add-tuple select)]))
+
+(def db-schema
+    (make-database
+      (relation :forms [:id :title])
+      (index :forms :id)))
+
+(def db2 (add-tuples db-schema [:forms :id 1 :title "Form 1"]))
+
+(defn filter- [map key val]
+  (filter #(= (key %) val) map))
+
+(defn filter-- [map key val]
+  (filter #(not= (key %) val) map))
+
+; forms
+(defn all-forms []
+  (select db2 :forms {}))
+
+(defn form [id]
+  (nth (filter- (all-forms) :id (Integer/valueOf id)) 0 {}))
+
+(defn add-form [title order method target success fail cancel email]
+	(def db2 
+		(add-tuple db2 :forms 
+			{:id (inc (count (all-forms)))
+			 :title title 
+			 :order (Integer/valueOf order)
+			 :method method 
+			 :target target 
+			 :success success 
+			 :fail fail 
+			 :cancel cancel 
+			 :email email})))
+
+(defn edit-form [id title order method target success fail cancel email]
+	(assoc-in 
+		(assoc-in (form id) [:title] title)
+		[:order] (Integer/valueOf order)))
+
+(defn delete-form [id])
+
+(defn but-form [id]
+  (nth (filter-- (all-forms) :id (Integer/valueOf id)) 0 {}))

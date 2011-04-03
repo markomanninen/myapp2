@@ -1,0 +1,10 @@
+(ns cljgae.database2
+    (:use
+	  [clojure.contrib.datalog.database :only (make-database add-tuples add-tuple select)]))
+
+(def db-schema
+    (make-database
+      (relation :forms [:id :title :order])
+      (index :forms :id)))
+
+(def db2 (add-tuples db-schema [:forms :id 1 :title "Form 1"]))
